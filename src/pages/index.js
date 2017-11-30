@@ -12,21 +12,16 @@ function nisNumber(number) {
 class IndexPage extends React.Component {
     constructor(props) {
         super(props);
-
-        const pageParams = getUrlParameters();
-        this.state = {
-            coins: Object.entries(pageParams).filter(obj => supportedCoins[obj[0]] && !isNaN(parseInt(obj[1])))
-        }
+        this.state = {};
     }
-
 
     render() {
         return (
             <div>
                 <h1>
-                    Total: {nisNumber(this.state.coins.reduce((sum, coin) => sum + this.state[coin[0]], 0))}</h1>
+                    Total: {nisNumber(this.state.coins && this.state.coins.reduce((sum, coin) => sum + this.state[coin[0]], 0))}</h1>
                 <ul>
-                    {this.state.coins.map((coin, key) => (
+                    {this.state.coins && this.state.coins.map((coin, key) => (
                         <li key={key}>{coin[0]}: {coin[1]} = {nisNumber(this.state[coin[0]])}</li>
                     ))}
                 </ul>
@@ -35,7 +30,10 @@ class IndexPage extends React.Component {
     }
 
     componentDidMount() {
-        this.state.coins.forEach(coin => {
+        const pageParams = getUrlParameters();
+        const coins = Object.entries(pageParams).filter(obj => supportedCoins[obj[0]] && !isNaN(parseInt(obj[1])));
+        this.setState({coins});
+        coins.forEach(coin => {
             getPrice(coin[0], "NIS").then(price => {
                 this.setState({[coin[0]]: price * parseInt(coin[1])});
             })
