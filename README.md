@@ -1,4 +1,4 @@
 # coins-tracker
 Provides balance for various coins.
 
-Example: [http://localhost:8000/?XMR=1&BTC=2&ETH=3](http://localhost:8000/?XMR=1&BTC=2&ETH=3)
+Example: [https://coins-tracker.netlify.com/?BTC=1.2&ZEC=3&ETH=10.23](https://coins-tracker.netlify.com/?BTC=1.2&ZEC=3&ETH=10.23)
