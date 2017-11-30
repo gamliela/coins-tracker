@@ -1,12 +1,46 @@
 import React from 'react'
-import Link from 'gatsby-link'
+import {getUrlParameters, niceNumber} from "../shared_modules/utils-js";
+import {getPrice, supportedCoins} from "../shared_modules/utils-exchange";
 
-const IndexPage = () => (
-  <div>
-    <h2>I have 1 BTC and 2 ZSC, with total worth of 100 $</h2>
-    <p>Charts TBD...</p>
-    <Link to="/page-2/">Go to page 2</Link>
-  </div>
-)
+function nisNumber(number) {
+    if (typeof(number === "number") && !isNaN(number))
+        return `${niceNumber(number)} NIS`;
+    else
+        return 'Loading...';
+}
+
+class IndexPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        const pageParams = getUrlParameters();
+        this.state = {
+            coins: Object.entries(pageParams).filter(obj => supportedCoins[obj[0]] && !isNaN(parseInt(obj[1])))
+        }
+    }
+
+
+    render() {
+        return (
+            <div>
+                <h1>
+                    Total: {nisNumber(this.state.coins.reduce((sum, coin) => sum + this.state[coin[0]], 0))}</h1>
+                <ul>
+                    {this.state.coins.map((coin, key) => (
+                        <li key={key}>{coin[0]}: {coin[1]} = {nisNumber(this.state[coin[0]])}</li>
+                    ))}
+                </ul>
+            </div>
+        )
+    }
+
+    componentDidMount() {
+        this.state.coins.forEach(coin => {
+            getPrice(coin[0], "NIS").then(price => {
+                this.setState({[coin[0]]: price * parseInt(coin[1])});
+            })
+        })
+    }
+}
 
 export default IndexPage

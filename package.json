@@ -1,17 +1,14 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "my-coins-balance",
+  "description": "computes coins balance",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Alon Gamliel <alon@gamliela.com>",
   "dependencies": {
     "gatsby": "^1.9.119",
     "gatsby-cli": "^1.1.23",
     "gatsby-link": "^1.6.28",
     "gatsby-plugin-react-helmet": "^1.0.8"
   },
-  "keywords": [
-    "gatsby"
-  ],
   "license": "MIT",
   "main": "n/a",
   "scripts": {

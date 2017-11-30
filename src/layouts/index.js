@@ -27,7 +27,7 @@ const Header = () => (
             textDecoration: 'none',
           }}
         >
-          My Coins
+          My Coins Balance
         </Link>
       </h1>
     </div>
@@ -37,10 +37,10 @@ const Header = () => (
 const TemplateWrapper = ({ children }) => (
   <div>
     <Helmet
-      title="Gatsby Default Starter"
+      title="My Coins Balance"
       meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
+        { name: 'description', content: 'Computes Bitcoin and alt coins balance' },
+        { name: 'keywords', content: 'Bitcoin' },
       ]}
     />
     <Header />
