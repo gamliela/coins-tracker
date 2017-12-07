@@ -31,11 +31,11 @@ class IndexPage extends React.Component {
 
     componentDidMount() {
         const pageParams = getUrlParameters();
-        const coins = Object.entries(pageParams).filter(obj => supportedCoins[obj[0]] && !isNaN(parseInt(obj[1])));
+        const coins = Object.entries(pageParams).filter(obj => supportedCoins[obj[0]] && !isNaN(parseFloat(obj[1])));
         this.setState({coins});
         coins.forEach(coin => {
             getPrice(coin[0], "NIS").then(price => {
-                this.setState({[coin[0]]: price * parseInt(coin[1])});
+                this.setState({[coin[0]]: price * parseFloat(coin[1])});
             })
         })
     }
