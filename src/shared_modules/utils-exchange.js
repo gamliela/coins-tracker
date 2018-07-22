@@ -76,16 +76,26 @@ const bilaxySymbols = {
 
 const bilaxySupportedCoins = Object.keys(bilaxySymbols);
 
+const coinGeckoIds = {
+  "BNT": "bancor"
+};
+
+const coinGeckoSupportedCoins = Object.keys(coinGeckoIds);
+
 const supportedCoins = [
   "BTC",
   "NIS",
-].concat(poloniexSupportedCoins).concat(bilaxySupportedCoins);
+].concat(poloniexSupportedCoins).concat(bilaxySupportedCoins).concat(coinGeckoSupportedCoins);
 
 function getPrice(c1, c2) {
   if (bilaxySymbols[c1])
     return Promise
       .all([getPriceBilaxy(c1), getPricePoloniex("ETH"), getPriceBit2c(c2)])
       .then(values => values[0] * values[1] * values[2]);
+  else if (coinGeckoIds[c1])
+    return Promise
+      .all([getPriceCoinGecko(c1), getPriceBit2c(c2)])
+      .then(values => values[0] * values[1]);
   else
     return Promise
       .all([getPricePoloniex(c1), getPriceBit2c(c2)])
@@ -98,6 +108,16 @@ function getPriceBilaxy(c) {
     const data = json.data.filter(entry => entry.symbol == bilaxySymbols[c])[0];
     if (data && data.last)
       return parseFloat(data.last);
+    else
+      throw new Error("coin is not supported");
+  });
+}
+
+function getPriceCoinGecko(c) {
+  return getJsonWithCache(`https://api.coingecko.com/api/v3/coins/${coinGeckoIds[c]}`).then(json => {
+    const data = json.market_data.current_price;
+    if (data && data.btc)
+      return parseFloat(data.btc);
     else
       throw new Error("coin is not supported");
   });
