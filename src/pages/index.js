@@ -31,7 +31,7 @@ class IndexPage extends React.Component {
 
   componentDidMount() {
     const pageParams = getUrlParameters();
-    const coins = Object.entries(pageParams).filter(obj => supportedCoins[obj[0]] && !isNaN(parseFloat(obj[1])));
+    const coins = Object.entries(pageParams).filter(obj => supportedCoins.includes(obj[0]) && !isNaN(parseFloat(obj[1])));
     this.setState({ coins });
     coins.forEach(coin => {
       getPrice(coin[0], "NIS").then(price => {
