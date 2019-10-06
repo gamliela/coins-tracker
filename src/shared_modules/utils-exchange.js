@@ -1,7 +1,6 @@
 import { getJsonWithCache } from "./utils-server";
 
 const poloniexSupportedCoins = [
-  "AMP",
   "ARDR",
   "BCH",
   "BCN",
@@ -77,7 +76,8 @@ const bilaxySymbols = {
 const bilaxySupportedCoins = Object.keys(bilaxySymbols);
 
 const coinGeckoIds = {
-  "BNT": "bancor"
+  "BNT": "bancor",
+  "AMP": "synereo"
 };
 
 const coinGeckoSupportedCoins = Object.keys(coinGeckoIds);
@@ -105,7 +105,7 @@ function getPrice(c1, c2) {
 // note that Bilaxy currently doesn't support CORS, so we use https://cors-anywhere.herokuapp.com/ service to solve this.
 function getPriceBilaxy(c) {
   return getJsonWithCache("https://cors-anywhere.herokuapp.com/http://api.bilaxy.com/v1/tickers").then(json => {
-    const data = json.data.filter(entry => entry.symbol == bilaxySymbols[c])[0];
+    const data = json.data.filter(entry => entry.symbol === bilaxySymbols[c])[0];
     if (data && data.last)
       return parseFloat(data.last);
     else

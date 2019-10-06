@@ -1,4 +1,5 @@
 import React from "react";
+import TemplateWrapper from "../layouts";
 import { getUrlParameters, niceNumber } from "../shared_modules/utils-js";
 import { getPrice, supportedCoins } from "../shared_modules/utils-exchange";
 
@@ -17,7 +18,7 @@ class IndexPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <TemplateWrapper>
         <h1>
           Total: {nisNumber(this.state.coins && this.state.coins.reduce((sum, coin) => sum + this.state[coin[0]], 0))}</h1>
         <ul>
@@ -25,7 +26,7 @@ class IndexPage extends React.Component {
             <li key={key}>{coin[0]}: {coin[1]} = {nisNumber(this.state[coin[0]])}</li>
           ))}
         </ul>
-      </div>
+      </TemplateWrapper>
     );
   }
 
@@ -35,7 +36,11 @@ class IndexPage extends React.Component {
     this.setState({ coins });
     coins.forEach(coin => {
       getPrice(coin[0], "NIS").then(price => {
+        console.log(`price for 1 ${coin[0]} is ${price} NIS`);
         this.setState({ [coin[0]]: price * parseFloat(coin[1]) });
+      }).catch((e) => {
+        console.error(`can't get price for ${coin[0]}`, e)
+        this.setState({ [coin[0]]: 0 });
       });
     });
   }

@@ -4,11 +4,14 @@
   "version": "1.0.0",
   "author": "Alon Gamliel <alon@gamliela.com>",
   "dependencies": {
-    "gatsby": "^1.9.277",
-    "gatsby-cli": "^1.1.58",
-    "gatsby-link": "^1.6.46",
-    "gatsby-plugin-react-helmet": "^2.0.11",
-    "react-helmet": "^5.2.0"
+    "@reach/router": "^1.2.1",
+    "gatsby": "^2.15.29",
+    "gatsby-cli": "^2.7.54",
+    "gatsby-link": "^2.2.18",
+    "gatsby-plugin-react-helmet": "^3.1.10",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-helmet": "^5.2.1"
   },
   "license": "MIT",
   "main": "n/a",
@@ -19,6 +22,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "prettier": "^1.13.7"
+    "prettier": "^1.18.2"
   }
 }
