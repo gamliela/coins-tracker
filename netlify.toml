@@ -1,0 +1,9 @@
+[build.environment]
+  NODE_VERSION = "16"
+  NPM_FLAGS = "--version" # prevent Netlify npm install
+[build]
+  publish = "build"
+  command = "npx pnpm@7.6.0 install && react-scripts build" # Pin version to align with my local version
+[functions]
+  # For some odd reason it doesn't work without it (https://answers.netlify.com/t/runtime-importmoduleerror-cannot-find-module/68307/5)
+  node_bundler = "esbuild"
